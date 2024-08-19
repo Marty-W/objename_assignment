@@ -1,7 +1,7 @@
 import { createSignal, Show } from 'solid-js';
 import { NavigationBar } from './components/NavigationBar';
 import { TimeList } from './components/TimeList';
-import { EmptyTimeList } from './components/EmptyTimeList';
+import { TimeListStatus } from './components/TimeListStatus';
 import { getDays } from './utils/api';
 
 function App() {
@@ -27,7 +27,14 @@ function App() {
           selectedDate={selectedDate}
           onDateSelect={handleDateSelect}
         />
-        <Show when={selectedDate()} fallback={<EmptyTimeList />}>
+        <Show
+          when={selectedDate()}
+          fallback={
+            <TimeListStatus>
+              <span>Zvolte datum</span>
+            </TimeListStatus>
+          }
+        >
           <TimeList
             selectedDate={selectedDate}
             selectedTime={selectedTime}

@@ -1,6 +1,7 @@
 import { For, Accessor, createResource, Show } from 'solid-js';
 import { getTimesForDate } from '../utils/api';
 import { TimeSlot } from './Timeslot';
+import { TimeListStatus } from './TimeListStatus';
 
 interface Props {
   selectedDate: Accessor<string>;
@@ -19,17 +20,17 @@ export function TimeList(props: Props) {
     <Show
       when={!apiResponse.loading}
       fallback={
-        <div class="text-center text-white">
-          Loading time slots...
-        </div>
+        <TimeListStatus>
+          <span>Loading time slots...</span>
+        </TimeListStatus>
       }
     >
       <Show
         when={apiResponse()?.Status === 'OK'}
         fallback={
-          <div class="text-center text-red-500">
-            Error loading time slots
-          </div>
+          <TimeListStatus>
+            <span class="text-red-300">Error loading time slots</span>
+          </TimeListStatus>
         }
       >
         <div class="grid auto-cols-auto grid-cols-3 gap-4">
